@@ -61,7 +61,7 @@ const getPlugins = () => {
       __SERVER__: false,
       __DEV__: isDev,
     }),
-    new webpack.NoErrorsPlugin(),
+    new webpack.NoEmitOnErrorsPlugin(),
     webpackIsomorphicToolsPlugin
   );
 
@@ -171,7 +171,4 @@ module.exports = {
     modules: ['src', 'node_modules'],
   },
   plugins: getPlugins(),
-  performance: {
-    hints: isDev ? false : 'warning',
-  },
 };
