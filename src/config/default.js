@@ -1,6 +1,6 @@
 module.exports = {
-  host: 'localhost',
-  port: 3000,
+  host: process.env.NODE_HOST || 'localhost',
+  port: process.env.PORT,
   app: {
     htmlAttributes: { lang: 'en' },
     title: 'React Cool Starter',

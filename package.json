@@ -58,14 +58,16 @@
       "command": "nodemon ./index.js --exec babel-node",
       "env": {
         "NODE_PATH": "./src",
-        "NODE_ENV": "development"
+        "NODE_ENV": "development",
+        "PORT": 3000
       }
     },
     "start:prod": {
       "command": "node ./index.js",
       "env": {
         "NODE_PATH": "./src",
-        "NODE_ENV": "production"
+        "NODE_ENV": "production",
+        "PORT": 8080
       }
     },
     "build:client": {
@@ -75,10 +77,7 @@
       }
     },
     "build:server": {
-      "command": "webpack --progress --hide-modules --config ./tools/webpack/webpack.server.babel.js",
-      "env": {
-        "NODE_ENV": "production"
-      }
+      "command": "webpack --progress --hide-modules --config ./tools/webpack/webpack.server.babel.js"
     },
     "lint:js": {
       "command": "eslint -c .eslintrc ./src ./tools ./index.js"

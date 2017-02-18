@@ -57,12 +57,6 @@ module.exports = {
         },
       },
     }),
-    new webpack.DefinePlugin({
-      'process.env': { NODE_ENV: JSON.stringify('production') },
-      __CLIENT__: JSON.stringify(false),
-      __SERVER__: JSON.stringify(true),
-      __DEV__: JSON.stringify(process.env.NODE_ENV !== 'production'),
-    }),
     new webpack.optimize.LimitChunkCountPlugin({ maxChunks: 1 }),
   ],
   resolve: {
