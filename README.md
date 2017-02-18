@@ -298,7 +298,7 @@ const App = ({ children }) => (
 );
 ```
 
-For the better development experience, don't forget to include those files in the `./src/util/renderHtmlPage.js`, for example:
+For the better development experience, don't forget to include those files in the `./src/utils/renderHtmlPage.js`, for example:
 
 ```javascript
 // ...
