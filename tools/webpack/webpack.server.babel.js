@@ -2,7 +2,6 @@
 
 const path = require('path');
 const webpack = require('webpack');
-// eslint-disable-next-line import/no-extraneous-dependencies
 const nodeExternals = require('webpack-node-externals');
 
 module.exports = {
@@ -18,7 +17,7 @@ module.exports = {
   output: {
     path: path.join(process.cwd(), './build'),
     filename: '[name].js',
-    chunkFilename: '[name].[chunkhash].chunk.js',
+    chunkFilename: '[name].[chunkhash:8].chunk.js',
     libraryTarget: 'commonjs2',
   },
   module: {
@@ -39,9 +38,13 @@ module.exports = {
           plugins: ['transform-runtime'],
         },
       },
-      { test: /\.css$/, loaders: ['css-loader/locals', 'postcss-loader'] },
-      { test: /\.scss$/, loaders: ['css-loader/locals', 'postcss-loader', 'sass-loader'] },
-      { test: /\.(png|jpe?g|gif|svg|woff2?|ttf|eot)$/, loader: 'url-loader?limit=10000' },
+      { test: /\.css$/, use: ['css-loader/locals', 'postcss-loader'] },
+      { test: /\.scss$/, use: ['css-loader/locals', 'postcss-loader', 'sass-loader'] },
+      {
+        test: /\.(png|jpe?g|gif|svg|woff2?|ttf|eot)$/,
+        loader: 'url-loader',
+        options: { limit: 10000 },
+      },
     ],
   },
   plugins: [
@@ -56,9 +59,9 @@ module.exports = {
     }),
     new webpack.DefinePlugin({
       'process.env': { NODE_ENV: JSON.stringify('production') },
-      __CLIENT__: false,
-      __SERVER__: true,
-      __DEV__: process.env.NODE_ENV !== 'production',
+      __CLIENT__: JSON.stringify(false),
+      __SERVER__: JSON.stringify(true),
+      __DEV__: JSON.stringify(process.env.NODE_ENV !== 'production'),
     }),
     new webpack.optimize.LimitChunkCountPlugin({ maxChunks: 1 }),
   ],

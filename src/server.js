@@ -1,6 +1,3 @@
-// Useful for debugging node.js code that has been bundled with Webpack
-import 'source-map-support/register';
-
 import path from 'path';
 import morgan from 'morgan';
 import express from 'express';
@@ -16,8 +13,7 @@ import { syncHistoryWithStore } from 'react-router-redux';
 import chalk from 'chalk';
 import createRoutes from './routes';
 import configureStore from './redux/store';
-import { createSelectLocationState } from './util/helpers';
-import renderHtmlPage from './util/renderHtmlPage';
+import renderHtmlPage from './utils/renderHtmlPage';
 import config from './config';
 
 const app = express();
@@ -43,8 +39,9 @@ if (__DEV__) {
 
   app.use(require('webpack-dev-middleware')(compiler, {
     publicPath: webpackConfig.output.publicPath,
+    hot: true,
     noInfo: true,
-    stats: { colors: true },
+    stats: 'minimal',
   }));
 
   app.use(require('webpack-hot-middleware')(compiler));
@@ -64,9 +61,7 @@ app.get('*', (req, res) => {
 
   const memoryHistory = createMemoryHistory(req.url);
   const routes = createRoutes(store);
-  const history = syncHistoryWithStore(memoryHistory, store, {
-    selectLocationState: createSelectLocationState('routing'),
-  });
+  const history = syncHistoryWithStore(memoryHistory, store);
 
   // eslint-disable-next-line max-len
   match({ history, routes, location: req.url }, (error, redirectLocation, renderProps) => {

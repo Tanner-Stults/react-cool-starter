@@ -1,6 +1,7 @@
-// Used for the server side of development enviroment only
+// Main used for server side, the client & testing parts
+// are included in their webpack config files
 
 {
   "presets": ["es2015", "react", "stage-0"],
-  "plugins": ["system-import-transformer"]
+  "plugins": ["syntax-dynamic-import", "dynamic-import-node"]
 }
